@@ -27,6 +27,7 @@ public class Winkel {
 		medewerkers.add(medewerker);
 	}
 	
+	//Returning a string in a format of the location and all the employees
 	public String toString()
 	{
 		String returnString = locatie;

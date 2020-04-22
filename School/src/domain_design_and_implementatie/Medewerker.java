@@ -4,6 +4,7 @@ public class Medewerker extends Klant {
 
 	private double uurloon;
 	
+	//Constructor for making a employee to set it's name and hourly wage
 	public Medewerker(String newNaam, double newUurloon)
 	{
 		setNaam(newNaam);

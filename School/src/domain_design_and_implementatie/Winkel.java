@@ -7,6 +7,11 @@ public class Winkel {
 	private String locatie;
 	private ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 
+	public Winkel(String newLocatie)
+	{
+		locatie = newLocatie;
+	}
+	
 	public String getLocatie()
 	{
 		return locatie;

@@ -1,9 +1,15 @@
 package domain_design_and_implementatie;
 
-public class Product implements Naam {
+public class Product {
 
 	private String naam;
 	private double prijs;
+	
+	public Product(String newNaam, double newPrijs)
+	{
+		naam = newNaam;
+		prijs = newPrijs;
+	}
 	
 	public double getPrijs()
 	{
@@ -15,12 +21,10 @@ public class Product implements Naam {
 		prijs = newPrijs;
 	}
 	
-	@Override
 	public String getNaam() {
 		return naam;
 	}
 
-	@Override
 	public void setNaam(String newNaam) {
 		naam = newNaam;
 	}	

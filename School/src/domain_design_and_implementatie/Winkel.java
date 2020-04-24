@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Winkel {
 
 	private String locatie;
+	private String naam;
 	private ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 
-	public Winkel(String newLocatie)
+	public Winkel(String newLocatie, String newNaam)
 	{
-		locatie = newLocatie;
+		setLocatie(newLocatie);
+		setNaam(newNaam);
 	}
 	
 	public String getLocatie()
@@ -20,6 +22,16 @@ public class Winkel {
 	public void setLocatie(String newLocatie)
 	{
 		locatie = newLocatie;
+	}
+	
+	public String getNaam()
+	{
+		return naam;
+	}
+	
+	public void setNaam(String newNaam)
+	{
+		naam = newNaam;
 	}
 	
 	public String getMedewerker(Medewerker medewerker)
@@ -38,7 +50,7 @@ public class Winkel {
 		String returnString = locatie;
 		for (Medewerker medewerker : medewerkers)
 		{
-			returnString += "\n" + medewerker.getNaam() + "/" + medewerker.getUurloon();
+			returnString += "\n" + medewerker.toString();
 		}
 		return returnString;
 	}

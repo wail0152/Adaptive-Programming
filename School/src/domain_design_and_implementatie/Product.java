@@ -29,4 +29,9 @@ public class Product {
 		naam = newNaam;
 	}	
 	
+	public String toString()
+	{
+		return getNaam() + "/" + getPrijs();
+	}
+	
 }

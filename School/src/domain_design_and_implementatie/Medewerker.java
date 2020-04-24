@@ -11,6 +11,7 @@ public class Medewerker implements Persoon {
 	{
 		setNaam(newNaam);
 		setUurloon(newUurloon);
+		setWinkel(newWinkel);
 	}
 	
 	public double getUurloon()
@@ -23,6 +24,11 @@ public class Medewerker implements Persoon {
 		uurloon = newUurloon;
 	}
 
+	public String toString()
+	{
+		return getNaam() + "/" + getWinkel().getNaam() + "/" + getUurloon();
+	}
+	
 	@Override
 	public String getNaam() {
 		return naam;

@@ -27,4 +27,14 @@ public class Zelfscanner {
 		producten.add(product);
 	}
 	
+	public String toString()
+	{
+		String returnString = "\n" + getKlant().getNaam();
+		for (Product product : getProduct())
+		{
+			returnString += "\n" + product.toString();
+		}
+		return returnString;
+	}
+	
 }

@@ -1,27 +1,32 @@
 package domain_design_and_implementatie;
 
-import java.util.ArrayList;
-
 public class Klant implements Persoon {
 
 	private String naam;
 	private Winkel winkel;
-	private ArrayList<Product> producten = new ArrayList<Product>();
+	private Zelfscanner zelfscanner;
 	
-	public Klant(String newNaam, Winkel newWinkel)
+	public Klant(String newNaam, Winkel newWinkel, Zelfscanner newZelfscanner)
 	{
-		naam = newNaam;
-		winkel = newWinkel;
+		setNaam(newNaam);
+		setWinkel(newWinkel);
+		setZelfscanner(newZelfscanner);
+		zelfscanner.setKlant(this);
 	}
 	
-	public ArrayList<Product> getProduct()
+	public Zelfscanner getZelfscanner()
 	{
-		return producten;
+		return zelfscanner;
 	}
 	
-	public void setProduct(Product product)
+	public void setZelfscanner(Zelfscanner newZelfscanner)
 	{
-		producten.add(product);
+		zelfscanner = newZelfscanner;
+	}
+	
+	public String toString()
+	{
+		return getWinkel().getNaam() + "/" + getNaam();
 	}
 	
 	@Override

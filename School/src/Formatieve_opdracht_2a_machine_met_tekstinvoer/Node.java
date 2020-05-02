@@ -29,10 +29,18 @@ public class Node {
 
     public void giveInput(String input)
     {        
+        Node nextNode = map.get(input.substring(0, 1));
+
+        if (nextNode == null)
+        {
+            System.out.println("Error at: " + nodeName);
+            return;
+        }
+        
         if (input.length() > 1)
-            map.get(input.substring(0, 1)).giveInput(input.substring(1, input.length()));
+            nextNode.giveInput(input.substring(1, input.length()));
         else
-            System.out.println("Ended at: " + map.get(input.substring(0, 1)).nodeName);
+            System.out.println("Ended at: " + nextNode.nodeName);
     }
 
 }

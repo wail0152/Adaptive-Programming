@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Node {
     
-    private ArrayList<Node> connectedNodes = new ArrayList<Node>();
-    private ArrayList<Double> chances = new ArrayList<Double>();
+    private ArrayList<Connection> connectedNodes = new ArrayList<Connection>();
     private String nodeName;
 
     public Node(String nodeName)
@@ -17,8 +16,28 @@ public class Node {
     {
         for(Connection connection : connections)
         {
-            connectedNodes.add(connection.n);
-            chances.add(connection.chance);
+            connectedNodes.add(connection);
+        }
+    }
+
+    public void readSequence(String sequence)
+    {
+        if (sequence.length() == 1)
+        {
+            System.out.println("The sequence stopped at: " + nodeName);
+            return;
+        }
+
+        double r = Math.random();
+        double passedChance = 0;
+        for(Connection connection : connectedNodes)
+        {
+            if (sequence.substring(0, 1).equals(connection.s) && r <= passedChance + connection.chance)
+            {
+                connection.n.readSequence(sequence.substring(1, sequence.length()));
+                return;
+            }
+            passedChance += connection.chance;
         }
     }
 

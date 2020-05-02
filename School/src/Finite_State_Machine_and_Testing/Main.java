@@ -9,12 +9,12 @@ public class Main {
         Node s2 = new Node("s2");
         Node s3 = new Node("s3");
 
-        s0.setNode(new Connection(s1, 0.5), new Connection(s2, 0.3), new Connection(s3, 0.2));
-        s1.setNode(new Connection(s1, 0.5), new Connection(s0, 0.5));
-        s2.setNode(new Connection(s2, 0.5), new Connection(s2, 0.5));
-        s3.setNode(new Connection(s1, 0.5), new Connection(s0, 0.5));
+        s0.setNode(new Connection(s1, 0.5, "A"), new Connection(s2, 0.3, "B"), new Connection(s3, 0.2, "B"));
+        s1.setNode(new Connection(s1, 0.5, "B"), new Connection(s0, 0.5, "A"));
+        s2.setNode(new Connection(s2, 0.5, "B"), new Connection(s2, 0.5, "A"));
+        s3.setNode(new Connection(s1, 0.5, "A"), new Connection(s0, 0.5, "A"));
 
-        //s0.giveInput("BAAB");
+        s0.readSequence("BAAB");
     }
 
 }

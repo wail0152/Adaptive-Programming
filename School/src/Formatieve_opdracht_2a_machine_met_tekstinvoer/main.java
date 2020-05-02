@@ -1,6 +1,6 @@
 package Formatieve_opdracht_2a_machine_met_tekstinvoer;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) 
     {

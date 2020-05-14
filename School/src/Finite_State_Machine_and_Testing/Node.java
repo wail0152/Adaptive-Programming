@@ -35,7 +35,9 @@ public class Node {
         {
             if (sequence.substring(0, 1).equals(connection.s) && r <= passedChance + connection.chance)
             {
-                if (sequence.length() == 1)
+                if (connection.n == null)
+                    System.out.println(toString() + " with an error for the input " + sequence.charAt(0));
+                else if (sequence.length() == 1)
                     System.out.println(connection.n.toString());
                 else
                     connection.n.readSequence(sequence.substring(1));

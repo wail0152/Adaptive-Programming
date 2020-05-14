@@ -32,8 +32,8 @@ class NodeTest {
         s0.setNode(con1, con2);
 
         assertEquals(2, s0.getConnectedNotes().size());
-        assertEquals(con1, s0.getConnectedNotes().get(0));
-        assertEquals(con2, s0.getConnectedNotes().get(1));
+        assertSame(con1, s0.getConnectedNotes().get(0));
+        assertSame(con2, s0.getConnectedNotes().get(1));
     }
 
     @Test
@@ -52,5 +52,15 @@ class NodeTest {
     void testToString() {
         Node n = new Node("s1");
         assertEquals("The sequence ended at: s1", n.toString());
+    }
+
+    @Test
+    void testNullNode()
+    {
+        Node s0 = new Node("s0");
+
+        s0.setNode(new Connection(s0, 1, "A"), new Connection(null, 1, "B"));
+        s0.readSequence("AAB");
+        assertEquals("The sequence ended at: s0 with an error for the input B", outContent.toString().trim());
     }
 }

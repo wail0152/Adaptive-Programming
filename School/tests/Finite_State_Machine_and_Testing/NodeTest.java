@@ -1,8 +1,6 @@
 package Finite_State_Machine_and_Testing;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -15,14 +13,10 @@ class NodeTest {
     private static final PrintStream originalOut = System.out;
 
     @BeforeAll
-    public static void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
+    public static void setUpStreams() { System.setOut(new PrintStream(outContent)); }
 
     @AfterAll
-    public static void restoreStreams() {
-        System.setOut(originalOut);
-    }
+    public static void restoreStreams() { System.setOut(originalOut); }
 
     @Test
     void setNode() {
@@ -38,14 +32,15 @@ class NodeTest {
 
     @Test
     void readSequence() {
+        String out = outContent.toString();
+
         Node s0 = new Node("s0");
         Node s1 = new Node("s1");
         s1.setReturnString("This is a custom return string");
-
         s0.setNode(new Connection(s0, 1, "A"), new Connection(s1, 1, "B"));
         s0.readSequence("AAB");
 
-        assertEquals("This is a custom return string", outContent.toString().trim());
+        assertEquals(out + "This is a custom return string", outContent.toString().trim());
     }
 
     @Test
@@ -57,10 +52,25 @@ class NodeTest {
     @Test
     void testNullNode()
     {
-        Node s0 = new Node("s0");
+        String out = outContent.toString();
 
+        Node s0 = new Node("s0");
         s0.setNode(new Connection(s0, 1, "A"), new Connection(null, 1, "B"));
         s0.readSequence("AAB");
-        assertEquals("The sequence ended at: s0 with an error for the input B", outContent.toString().trim());
+
+        assertEquals(out + "The sequence ended at: s0 with an error for the input B", outContent.toString().trim());
     }
+
+    @Test
+    void testNoPath()
+    {
+        String out = outContent.toString();
+
+        Node s0 = new Node("s0");
+        s0.setNode(new Connection(s0, 1, "A"));
+        s0.readSequence("AAB");
+
+        assertEquals(out + "The sequence ended at: s0 with no path for the input B", outContent.toString().trim());
+    }
+
 }

@@ -46,6 +46,7 @@ public class Node {
             }
             passedChance += connection.chance;
         }
+        System.out.println("The sequence ended at: " + nodeName + " with no path for the input " + sequence.charAt(0));
     }
 
     public String toString()

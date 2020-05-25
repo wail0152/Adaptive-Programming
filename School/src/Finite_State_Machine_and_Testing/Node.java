@@ -27,7 +27,7 @@ public class Node {
         this.returnString = returnString;
     }
 
-    public void readSequence(String sequence)
+    public String readSequence(String sequence)
     {
         double r = Math.random();
         double passedChance = 0;
@@ -36,17 +36,15 @@ public class Node {
             if (sequence.substring(0, 1).equals(connection.s) && r <= passedChance + connection.chance)
             {
                 if (connection.n == null)
-                    System.out.println(toString() + " with an error for the input " + sequence.charAt(0));
+                    return toString() + " with an error for the input " + sequence.charAt(0);
                 else if (sequence.length() == 1)
-                    System.out.println(connection.n.toString());
+                    return connection.n.toString();
                 else
-                    connection.n.readSequence(sequence.substring(1));
-
-                return;
+                    return connection.n.readSequence(sequence.substring(1));
             }
             passedChance += connection.chance;
         }
-        System.out.println("The sequence ended at: " + nodeName + " with no path for the input " + sequence.charAt(0));
+        return "The sequence ended at: " + nodeName + " with no path for the input " + sequence.charAt(0);
     }
 
     public String toString()

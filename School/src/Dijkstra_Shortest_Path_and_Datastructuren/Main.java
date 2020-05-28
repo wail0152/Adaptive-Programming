@@ -1,79 +1,56 @@
 package Dijkstra_Shortest_Path_and_Datastructuren;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.PrimitiveIterator;
 import java.util.PriorityQueue;
 
 public class Main {
 
-    private PriorityQueue<Reis> reizen = new PriorityQueue<>();
+    private static PriorityQueue<Reis> reizen = new PriorityQueue<>();
 
     public static void main(String[] args)
     {
-        Reis reis1 = TestReis1();
-        for (Stap s : reis1.getStappen())
-        {
-            for (Node n : s.getLinkedNodes()) {
-                System.out.println(n.getName());
-            }
+        String[] names1 = {"Utrecht", "Overijssel", "Flevo-Land", "Groningen"};
+        Destination[] destinations1 = {new Destination(0, 1, 5), new Destination(0, 2, 5),
+                                       new Destination(1, 3, 4), new Destination(2, 3, 5)};
+        Reis reis1 = MakeReis(names1, destinations1, true, false, false);
+
+        String[] names2 = {"Utrecht", "Zwolle", "Flevo-Land", "Groningen"};
+        Destination[] destinations2 = {new Destination(0, 1, 4), new Destination(0, 2, 5),
+                                       new Destination(1, 3, 4), new Destination(2, 3, 5)};
+        Reis reis2 = MakeReis(names2, destinations2, true, false, false);
+
+        reizen.add(reis1);
+        reizen.add(reis2);
+
+        for(Reis reis: reizen) {
+            reis.printReis();
         }
-        //Reis reis2 = TestReis2();
-        //System.out.println(reis1.compareTo(reis2));
     }
 
-    private static Reis TestReis1()
+    private static Reis MakeReis(String[] names, Destination[] destinations, boolean rit, boolean treinrit, boolean vlucht)
     {
-        Node nodeA = new Rit("Utrecht");
-        Node nodeB = new Rit("Overijssel");
-        Node nodeC = new Rit("Flevo-Land");
-        Node nodeD = new Rit("Groningen");
-
-        nodeA.addDestination(nodeB, 5);
-        nodeA.addDestination(nodeC, 5);
-
-        nodeB.addDestination(nodeD, 4);
-
-        nodeC.addDestination(nodeD, 5);
-
-        Reis reis = new Reis();
-
-        reis.addNode(nodeA);
-        reis.addNode(nodeB);
-        reis.addNode(nodeC);
-        reis.addNode(nodeD);
-
-        reis = Dijkstra.calculateShortestPathFromSource(reis, nodeA);
-        reis.setStappen(nodeD.getShortestPathToSelf());
-
-        return reis;
-    }
-
-    private static Reis TestReis2()
-    {
-        Node nodeA = new Rit("Utrecht");
-        Node nodeB = new Rit("Zwolle");
-        Node nodeC = new Rit("Flevo-Land");
-        Node nodeD = new Rit("Groningen");
-
-        nodeA.addDestination(nodeB, 5);
-        nodeA.addDestination(nodeC, 5);
-
-        nodeB.addDestination(nodeD, 3);
-
-        nodeC.addDestination(nodeD, 5);
-
-        Reis reis = new Reis();
-
-        reis.addNode(nodeA);
-        reis.addNode(nodeB);
-        reis.addNode(nodeC);
-        reis.addNode(nodeD);
-
-        reis = Dijkstra.calculateShortestPathFromSource(reis, nodeA);
-        for (Node ns : nodeD.getShortestPath())
+        List<Node> nodes = new ArrayList<>();
+        for (String name : names)
         {
-            System.out.println(ns.getName());
+            Stap n = null;
+            if (rit) n = new Rit(name);
+            else if (treinrit) n = new Treinrit(name);
+            else if (vlucht) n = new Vlucht(name);
+            nodes.add(n);
         }
-        System.out.println(nodeD.getName());
+
+        for (int i = 0; i < destinations.length; i++)
+        {
+            nodes.get(destinations[i].sourceNode).addDestination(nodes.get(destinations[i].destinationNode), destinations[i].distance);
+        }
+
+        Reis reis = new Reis();
+        reis.setNodes(nodes);
+
+        reis = Dijkstra.calculateShortestPathFromSource(reis, nodes.get(0));
+        reis.setStappen(nodes.get(nodes.size() - 1).getShortestPathToSelf());
 
         return reis;
     }

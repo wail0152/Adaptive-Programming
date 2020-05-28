@@ -1,22 +1,20 @@
 package Dijkstra_Shortest_Path_and_Datastructuren;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
 
-    private Set<Node> nodes = new HashSet<>();
+    private List<Node> nodes = new ArrayList<>();
 
     public void addNode(Node nodeA) {
         nodes.add(nodeA);
     }
 
-    public Set<Node> getNodes() {
+    public List<Node> getNodes() {
         return nodes;
     }
 
-    public void setNodes(Set<Node> nodes) {
+    public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
     }
 

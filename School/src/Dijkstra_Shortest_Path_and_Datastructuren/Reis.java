@@ -21,10 +21,20 @@ public class Reis extends Graph implements Comparable<Reis> {
             linkedListNodes.add(nodes.get(i));
             linkedListNodes.add(nodes.get(i + 1));
 
-            Stap s = new Stap("A");
+            Stap s = new Stap("");
             s.setLinkedNodes(linkedListNodes);
             stappen.add(s);
         }
+    }
+
+    public void printReis()
+    {
+        for (Stap s : stappen) {
+            for (Node n : s.getLinkedNodes()) {
+                System.out.println(n.getName());
+            }
+        }
+        System.out.println("\n");
     }
 
     @Override
@@ -33,18 +43,22 @@ public class Reis extends Graph implements Comparable<Reis> {
         int totalOther = 0;
         for (Stap stap : r.stappen)
         {
-            if (stap instanceof Rit)
+            for (Node n : stap.getLinkedNodes())
             {
-                totalOther += ((Rit) stap).fuel;
+                if (n instanceof Rit) totalOther += ((Rit) n).getFuel();
+                else if (n instanceof Treinrit) totalOther += ((Treinrit) n).getTravelDistance();
+                else if (n instanceof Vlucht) totalOther += ((Vlucht) n).getCost();
             }
         }
 
         int totalOwn = 0;
         for (Stap stap : stappen)
         {
-            if (stap instanceof Rit)
+            for (Node n : stap.getLinkedNodes())
             {
-                totalOwn += ((Rit) stap).fuel;
+                if (n instanceof Rit) totalOwn += ((Rit) n).getFuel();
+                else if (n instanceof Treinrit) totalOwn += ((Treinrit) n).getTravelDistance();
+                else if (n instanceof Vlucht) totalOwn += ((Vlucht) n).getCost();
             }
         }
 

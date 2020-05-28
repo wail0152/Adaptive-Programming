@@ -1,5 +1,6 @@
 package Dijkstra_Shortest_Path_and_Datastructuren;
 
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Main {
@@ -8,16 +9,23 @@ public class Main {
 
     public static void main(String[] args)
     {
-        TestReis();
-        //Example();
+        Reis reis1 = TestReis1();
+        for (Stap s : reis1.getStappen())
+        {
+            for (Node n : s.getLinkedNodes()) {
+                System.out.println(n.getName());
+            }
+        }
+        //Reis reis2 = TestReis2();
+        //System.out.println(reis1.compareTo(reis2));
     }
 
-    private static void TestReis()
+    private static Reis TestReis1()
     {
-        Node nodeA = new Node("Utrecht");
-        Node nodeB = new Node("Overijssel");
-        Node nodeC = new Node("Flevo-Land");
-        Node nodeD = new Node("Groningen");
+        Node nodeA = new Rit("Utrecht");
+        Node nodeB = new Rit("Overijssel");
+        Node nodeC = new Rit("Flevo-Land");
+        Node nodeD = new Rit("Groningen");
 
         nodeA.addDestination(nodeB, 5);
         nodeA.addDestination(nodeC, 5);
@@ -26,57 +34,48 @@ public class Main {
 
         nodeC.addDestination(nodeD, 5);
 
-        Graph graph = new Graph();
+        Reis reis = new Reis();
 
-        graph.addNode(nodeA);
-        graph.addNode(nodeB);
-        graph.addNode(nodeC);
-        graph.addNode(nodeD);
+        reis.addNode(nodeA);
+        reis.addNode(nodeB);
+        reis.addNode(nodeC);
+        reis.addNode(nodeD);
 
-        graph = Dijkstra.calculateShortestPathFromSource(graph, nodeA);
+        reis = Dijkstra.calculateShortestPathFromSource(reis, nodeA);
+        reis.setStappen(nodeD.getShortestPathToSelf());
+
+        return reis;
+    }
+
+    private static Reis TestReis2()
+    {
+        Node nodeA = new Rit("Utrecht");
+        Node nodeB = new Rit("Zwolle");
+        Node nodeC = new Rit("Flevo-Land");
+        Node nodeD = new Rit("Groningen");
+
+        nodeA.addDestination(nodeB, 5);
+        nodeA.addDestination(nodeC, 5);
+
+        nodeB.addDestination(nodeD, 3);
+
+        nodeC.addDestination(nodeD, 5);
+
+        Reis reis = new Reis();
+
+        reis.addNode(nodeA);
+        reis.addNode(nodeB);
+        reis.addNode(nodeC);
+        reis.addNode(nodeD);
+
+        reis = Dijkstra.calculateShortestPathFromSource(reis, nodeA);
         for (Node ns : nodeD.getShortestPath())
         {
             System.out.println(ns.getName());
         }
         System.out.println(nodeD.getName());
-    }
 
-    private static void Example()
-    {
-        Node nodeA = new Node("A");
-        Node nodeB = new Node("B");
-        Node nodeC = new Node("C");
-        Node nodeD = new Node("D");
-        Node nodeE = new Node("E");
-        Node nodeF = new Node("F");
-
-        nodeA.addDestination(nodeB, 10);
-        nodeA.addDestination(nodeC, 15);
-
-        nodeB.addDestination(nodeD, 12);
-        nodeB.addDestination(nodeF, 15);
-
-        nodeC.addDestination(nodeE, 10);
-
-        nodeD.addDestination(nodeE, 2);
-        nodeD.addDestination(nodeF, 1);
-
-        nodeF.addDestination(nodeE, 5);
-
-        Graph graph = new Graph();
-
-        graph.addNode(nodeA);
-        graph.addNode(nodeB);
-        graph.addNode(nodeC);
-        graph.addNode(nodeD);
-        graph.addNode(nodeE);
-        graph.addNode(nodeF);
-
-        graph = Dijkstra.calculateShortestPathFromSource(graph, nodeA);
-        for (Node ns : nodeE.getShortestPath())
-        {
-            System.out.println(ns.getName());
-        }
+        return reis;
     }
 
 }

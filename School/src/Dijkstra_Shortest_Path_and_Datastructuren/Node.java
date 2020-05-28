@@ -52,4 +52,12 @@ public class Node {
         this.shortestPath = shortestPath;
     }
 
+    public LinkedList<Node> getShortestPathToSelf()
+    {
+        LinkedList<Node> path = new LinkedList<>();
+        path.addAll(shortestPath);
+        path.add(this);
+        return path;
+    }
+
 }

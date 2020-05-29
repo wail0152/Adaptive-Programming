@@ -1,9 +1,7 @@
 package Dijkstra_Shortest_Path_and_Datastructuren;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class Dijkstra {
 
